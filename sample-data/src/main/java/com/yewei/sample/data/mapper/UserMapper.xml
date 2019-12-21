@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yewei.sample.data.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.yewei.sample.data.entity.UserModel">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="age" jdbcType="INTEGER" property="age"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+		id,name,phone,create_time,age
+	</sql>
+
+    <sql id="Base_Where_List">
+        <where>
+            <if test="id!=null">
+                and id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="name!=null">
+                and name =#{name,jdbcType=VARCHAR}
+            </if>
+            <if test="phone!=null">
+                and phone =#{phone,jdbcType=VARCHAR}
+            </if>
+
+            <if test="startDate != null">
+                and create_time <![CDATA[ >= ]]>
+                #{startDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="endDate != null">
+                and create_time <![CDATA[ <= ]]>
+                #{endDate,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectById"
+            parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="countUsers" resultType="java.lang.Long"
+            parameterType="com.yewei.sample.data.query.UserQuery">
+        select count(*) FROM
+        user
+        <include refid="Base_Where_List"/>
+    </select>
+
+    <select id="listUsers"
+            parameterType="com.yewei.sample.data.query.UserQuery"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user t1
+        <include refid="Base_Where_List"/>
+        order by create_time DESC, id desc
+        <if test="rows>0">
+            LIMIT #{start},#{rows}
+        </if>
+
+    </select>
+
+    <select id="listAllUsers"
+            parameterType="com.yewei.sample.data.query.UserQuery"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user t1
+        <include refid="Base_Where_List"/>
+    </select>
+
+
+    <insert id="insert"
+            parameterType="com.yewei.sample.data.entity.UserModel"
+            useGeneratedKeys="true"
+            keyProperty="id"
+            keyColumn="id">
+		insert into user (name,phone,age,create_time)
+		values (#{name,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{age,jdbcType=BIGINT},now())
+	</insert>
+
+    <update id="updateById"
+            parameterType="com.yewei.sample.data.entity.UserModel">
+        update user
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteById"
+            parameterType="java.lang.Integer">
+        update user
+        set is_removed = 1 where id = #{id,jdbcType=BIGINT}
+    </delete>
+</mapper>
