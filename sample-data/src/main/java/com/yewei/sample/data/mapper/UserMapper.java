@@ -25,20 +25,14 @@ public interface UserMapper {
 
     //column指数据库中的列，property是指实体的属性名，如果一致就不需要写
     List<UserModel> listAllUsers(UserQueryParam query);
+    Long countUsers(UserQueryParam query);
 
     List<UserModel> getUsersByPage(UserQueryParam query);
 
-    @Select("SELECT * FROM user WHERE id = #{id}")
-    @Results({
-            @Result(column = "create_time",property = "createTime")
-    })
     UserModel findById(Long id);
 
+    boolean updateById(UserModel user);
 
-    @Update("UPDATE user SET name=#{name} WHERE id =#{id}")
-    void update(UserModel user);
-
-    @Delete("DELETE FROM user WHERE id =#{userId}")
-    void delete(Long userId);
+    boolean deleteById(Long userId);
 
 }

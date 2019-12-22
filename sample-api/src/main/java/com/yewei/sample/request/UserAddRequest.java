@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class UserRequest {
+public class UserAddRequest {
     @ApiModelProperty("姓名")
     private String name;
 

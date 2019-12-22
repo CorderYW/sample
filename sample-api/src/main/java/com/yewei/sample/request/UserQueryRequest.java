@@ -13,7 +13,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserQuery extends PageReq {
+public class UserQueryRequest extends PageReq {
     private String name;
     private String phone;
 }

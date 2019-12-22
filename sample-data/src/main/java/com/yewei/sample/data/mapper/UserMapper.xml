@@ -14,6 +14,9 @@
 
     <sql id="Base_Where_List">
         <where>
+            <if test="1==1">
+                is_removed = 0
+            </if>
             <if test="name!=null">
                 and name =#{name,jdbcType=VARCHAR}
             </if>
@@ -32,12 +35,12 @@
         </where>
     </sql>
 
-    <select id="selectById"
+    <select id="findById"
             parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from user
-        where id = #{id,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT} and is_removed = 0
     </select>
 
     <select id="countUsers" resultType="java.lang.Long"
@@ -45,20 +48,6 @@
         select count(*) FROM
         user
         <include refid="Base_Where_List"/>
-    </select>
-
-    <select id="listUsers"
-            parameterType="com.yewei.sample.data.query.UserQueryParam"
-            resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from user t1
-        <include refid="Base_Where_List"/>
-        order by create_time DESC, id desc
-        <if test="rows>0">
-            LIMIT #{start},#{rows}
-        </if>
-
     </select>
 
     <select id="listAllUsers"
@@ -112,7 +101,7 @@
     </update>
 
     <delete id="deleteById"
-            parameterType="java.lang.Integer">
+            parameterType="java.lang.Long">
         update user
         set is_removed = 1 where id = #{id,jdbcType=BIGINT}
     </delete>
