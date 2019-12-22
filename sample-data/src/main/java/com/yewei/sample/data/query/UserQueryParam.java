@@ -1,5 +1,6 @@
 package com.yewei.sample.data.query;
 
+import com.yewei.sample.common.db.PageReq;
 import lombok.*;
 
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserQuery {
+public class UserQueryParam extends PageReq {
     private String name;
     private String phone;
     private Date startDate;

@@ -1,9 +1,14 @@
 package com.yewei.sample.service.impl;
+import com.yewei.sample.common.utils.CopyBeanUtils;
 import com.yewei.sample.data.entity.UserModel;
 import com.yewei.sample.data.mapper.UserMapper;
+import com.yewei.sample.data.query.UserQueryParam;
+import com.yewei.sample.request.UserQuery;
 import com.yewei.sample.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -19,5 +24,13 @@ public class UserServiceImpl implements UserService {
         userMapper.insert(user);
         int id = user.getId();
         return id;
+    }
+
+    @Override
+    public Object findUsersByPage(UserQuery query) {
+        UserQueryParam queryParam = CopyBeanUtils.copy(query, UserQueryParam.class);
+        List<UserModel> usersByPage = userMapper.getUsersByPage(queryParam);
+
+        return usersByPage;
     }
 }

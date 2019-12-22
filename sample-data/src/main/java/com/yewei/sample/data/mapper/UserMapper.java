@@ -3,6 +3,7 @@ import java.util.List;
 
 import com.yewei.sample.common.annotations.DefaultDB;
 import com.yewei.sample.data.entity.UserModel;
+import com.yewei.sample.data.query.UserQueryParam;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
@@ -28,6 +29,8 @@ public interface UserMapper {
             @Result(column = "create_time",property = "createTime")
     })
     List<UserModel> getAll();
+
+    List<UserModel> getUsersByPage(UserQueryParam query);
 
     @Select("SELECT * FROM user WHERE id = #{id}")
     @Results({

@@ -14,9 +14,6 @@
 
     <sql id="Base_Where_List">
         <where>
-            <if test="id!=null">
-                and id = #{id,jdbcType=BIGINT}
-            </if>
             <if test="name!=null">
                 and name =#{name,jdbcType=VARCHAR}
             </if>
@@ -44,14 +41,14 @@
     </select>
 
     <select id="countUsers" resultType="java.lang.Long"
-            parameterType="com.yewei.sample.data.query.UserQuery">
+            parameterType="com.yewei.sample.data.query.UserQueryParam">
         select count(*) FROM
         user
         <include refid="Base_Where_List"/>
     </select>
 
     <select id="listUsers"
-            parameterType="com.yewei.sample.data.query.UserQuery"
+            parameterType="com.yewei.sample.data.query.UserQueryParam"
             resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -65,7 +62,7 @@
     </select>
 
     <select id="listAllUsers"
-            parameterType="com.yewei.sample.data.query.UserQuery"
+            parameterType="com.yewei.sample.data.query.UserQueryParam"
             resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -73,6 +70,20 @@
         <include refid="Base_Where_List"/>
     </select>
 
+    <select id="getUsersByPage"
+            parameterType="com.yewei.sample.data.query.UserQueryParam"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user t1
+        <include refid="Base_Where_List"/>
+        <if test="order!=null">
+            order by #{order}
+        </if>
+        <if test="rows>0">
+            LIMIT #{start},#{rows}
+        </if>
+    </select>
 
     <insert id="insert"
             parameterType="com.yewei.sample.data.entity.UserModel"

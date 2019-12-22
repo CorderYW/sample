@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.yewei.sample.data.entity.UserModel;
 import com.yewei.sample.data.mapper.UserMapper;
+import com.yewei.sample.request.UserQuery;
 import com.yewei.sample.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,6 @@ public class UserController {
 
     @Autowired
     private UserMapper userMapper;
-
 
     /**
      * 功能描述: user 保存接口
@@ -47,6 +47,11 @@ public class UserController {
     public Object findAll(){
 
         return userMapper.getAll();
+    }
+
+    @GetMapping("findUsersByPage")
+    public Object findUsersByPage(UserQuery query){
+        return userService.findUsersByPage(query);
     }
 
     /**

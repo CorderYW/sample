@@ -19,7 +19,10 @@
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.yewei.sample</groupId>
+            <artifactId>sample-common</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
