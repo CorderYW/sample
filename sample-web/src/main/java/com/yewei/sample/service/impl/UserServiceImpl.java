@@ -1,5 +1,7 @@
 package com.yewei.sample.service.impl;
 import com.yewei.sample.common.db.PageResult;
+import com.yewei.sample.common.error.BusinessException;
+import com.yewei.sample.common.error.GeneralCode;
 import com.yewei.sample.common.utils.CopyBeanUtils;
 import com.yewei.sample.common.utils.ListTransformUtil;
 import com.yewei.sample.data.entity.UserModel;
@@ -64,7 +66,7 @@ public class UserServiceImpl implements UserService {
     public UserResponse findById(long id) throws Exception {
         UserModel byId = userMapper.findById(id);
         if(null == byId){
-            throw new Exception("user not found");
+            throw new BusinessException(GeneralCode.USER_NOT_EXIST);
         }
         return CopyBeanUtils.copy(byId,UserResponse.class);
     }
