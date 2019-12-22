@@ -9,9 +9,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserModel {
-    private int id;
+    private Integer id;
     private String name;
     private String phone;
-    private int age;
+    private Integer age;
     private Date createTime;
 }

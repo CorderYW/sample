@@ -1,42 +1,42 @@
 package com.yewei.sample.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
+import com.yewei.sample.api.UserApi;
+import com.yewei.sample.common.utils.CopyBeanUtils;
+import com.yewei.sample.common.utils.ListTransformUtil;
 import com.yewei.sample.data.entity.UserModel;
 import com.yewei.sample.data.mapper.UserMapper;
+import com.yewei.sample.data.query.UserQueryParam;
 import com.yewei.sample.request.UserQuery;
+import com.yewei.sample.request.UserRequest;
+import com.yewei.sample.respond.UserResponse;
 import com.yewei.sample.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/v1/user/")
-public class UserController {
+public class UserController implements UserApi {
 
-    //在UserServiceImpl定义了@Service实现类所以可以得到默认首字母小写的对象
     @Autowired
     private UserService userService;
 
     @Autowired
     private UserMapper userMapper;
 
-    /**
-     * 功能描述: user 保存接口
-     */
-    @GetMapping("add")
-    public Object add(){
-
-        UserModel user = new UserModel();
-        user.setAge(11);
-        user.setCreateTime(new Date());
-        user.setName("张三");
-        user.setPhone("1880177");
+    public UserResponse add(UserRequest userRequest){
+        UserModel user = CopyBeanUtils.copy(userRequest,UserModel.class);
         int id = userService.add(user);
-
-        return user.getId();
+        UserResponse re = CopyBeanUtils.copy(user,UserResponse.class);
+        return re;
     }
 
     /**
@@ -44,12 +44,17 @@ public class UserController {
      * 这里和下面是直接调用跳过Servise层，直接到DAO层
      */
     @GetMapping("findAll")
-    public Object findAll(){
-
-        return userMapper.getAll();
+    public List<UserResponse> findAll(UserQuery query){
+        UserQueryParam param = CopyBeanUtils.copy(query,UserQueryParam.class);
+        List<UserModel> all = userMapper.listAllUsers(param);
+        List<UserResponse> transform = new ArrayList<>();
+        if(!CollectionUtils.isEmpty(all)){
+            transform = ListTransformUtil.transform(all, UserResponse.class);
+        }
+        return transform;
     }
 
-    @GetMapping("findUsersByPage")
+    @PostMapping("findUsersByPage")
     public Object findUsersByPage(UserQuery query){
         return userService.findUsersByPage(query);
     }

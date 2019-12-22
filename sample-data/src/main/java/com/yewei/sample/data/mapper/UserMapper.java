@@ -24,11 +24,7 @@ public interface UserMapper {
     int insert(UserModel user);
 
     //column指数据库中的列，property是指实体的属性名，如果一致就不需要写
-    @Select("SELECT * FROM user")
-    @Results({
-            @Result(column = "create_time",property = "createTime")
-    })
-    List<UserModel> getAll();
+    List<UserModel> listAllUsers(UserQueryParam query);
 
     List<UserModel> getUsersByPage(UserQueryParam query);
 
