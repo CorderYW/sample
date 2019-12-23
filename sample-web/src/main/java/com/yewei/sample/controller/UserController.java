@@ -7,6 +7,7 @@ import java.util.Map;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.yewei.sample.api.UserApi;
+import com.yewei.sample.common.advice.SystemFix;
 import com.yewei.sample.common.db.PageResult;
 import com.yewei.sample.common.utils.CopyBeanUtils;
 import com.yewei.sample.common.utils.ListTransformUtil;
@@ -58,6 +59,7 @@ public class UserController implements UserApi {
      * 查找单个用户
      */
     @Override
+    @SystemFix
     public UserResponse findById(IDRequest request)throws Exception{
         return userService.findById(request.getId());
     }
@@ -66,6 +68,7 @@ public class UserController implements UserApi {
      * 删除单个用户
      */
     @Override
+    @SystemFix(isApi = true)
     public Boolean deleteById(IDRequest request)throws Exception{
         return userService.deleteById(request.getId());
     }

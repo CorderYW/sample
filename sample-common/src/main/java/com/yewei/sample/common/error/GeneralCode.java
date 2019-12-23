@@ -23,6 +23,8 @@ public enum GeneralCode implements ErrorCode {
     SYS_BODY_NULL("1001008", "业务主体为空"),
     SYS_ZUUL_ERROR("1001009", "系统正忙，请稍后再试！"),
     SYS_MAINTENANCE("1001010", "系统维护中"),
+    SYS_API_MAINTENANCE("1001011", "API维护中"),
+
     TOKEN_EXPIRE("1002001", "token过期"),
     TOKEN_NOT_EXIST("1002002", "无效的token"),
     GET_REDIS_ERROR("1002003", "获取redis对象异常"),
