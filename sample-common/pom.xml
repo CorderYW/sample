@@ -26,5 +26,13 @@
             <artifactId>UserAgentUtils</artifactId>
             <version>1.20</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.wso2.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.wso2.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.1.wso2v1</version>
+        </dependency>
+
+
     </dependencies>
 </project>

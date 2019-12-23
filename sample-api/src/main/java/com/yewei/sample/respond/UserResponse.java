@@ -9,7 +9,7 @@ import java.util.Date;
 public class UserResponse {
 
     @ApiModelProperty("id")
-    private Integer id;
+    private Long id;
 
     @ApiModelProperty("姓名")
     private String name;
@@ -17,7 +17,7 @@ public class UserResponse {
     @ApiModelProperty("电话")
     private String phone;
 
-    @ApiModelProperty("年龄")
+    @ApiModelProperty("年龄1")
     private Integer age;
 
     @ApiModelProperty("创建时间")

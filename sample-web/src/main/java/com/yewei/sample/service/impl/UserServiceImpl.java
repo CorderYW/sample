@@ -30,10 +30,10 @@ public class UserServiceImpl implements UserService {
 
     //这里你传过去的时候user的id为null,而insert之后传回回来的user会把数据库中的id值带回来，真强大
     @Override
-    public Integer add(UserModel user) {
+    public Long add(UserModel user) {
         log.info("添加用户:{}",user.toString());
         int insert = userMapper.insert(user);
-        int id = user.getId();
+        Long id = user.getId();
         return id;
     }
 
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse findById(long id) throws Exception {
+    public UserResponse findById(Long id) throws Exception {
         UserModel byId = userMapper.findById(id);
         if(null == byId){
             throw new BusinessException(GeneralCode.USER_NOT_EXIST);
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean deleteById(long id) {
+    public Boolean deleteById(Long id) {
         return userMapper.deleteById(id);
     }
 

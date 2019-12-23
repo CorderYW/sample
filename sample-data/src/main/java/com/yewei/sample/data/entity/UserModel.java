@@ -9,7 +9,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserModel {
-    private Integer id;
+    private Long id;
     private String name;
     private String phone;
     private Integer age;

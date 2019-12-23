@@ -1,6 +1,7 @@
 package com.yewei.sample.api;
 
 import com.yewei.sample.common.db.PageResult;
+import com.yewei.sample.request.IDRequest;
 import com.yewei.sample.request.UserQueryRequest;
 import com.yewei.sample.request.UserAddRequest;
 import com.yewei.sample.request.UserUpdateRequest;
@@ -17,20 +18,20 @@ import java.util.List;
 @Api(value = "user")
 public interface UserApi {
     @PostMapping(value = "/add")
-    UserResponse add(UserAddRequest userRequest)throws Exception;
+    UserResponse add(UserAddRequest userRequest) throws Exception;
 
     @GetMapping(value = "/listAllUsers")
-     List<UserResponse> listAllUsers(UserQueryRequest query)throws Exception;
+    List<UserResponse> listAllUsers(UserQueryRequest query) throws Exception;
 
     @GetMapping("findUsersByPage")
-    PageResult<UserResponse> findUsersByPage(UserQueryRequest query)throws Exception;
+    PageResult<UserResponse> findUsersByPage(UserQueryRequest query) throws Exception;
 
     @GetMapping(value = "/findById")
-    UserResponse findById(long id)throws Exception;
+    UserResponse findById(IDRequest id) throws Exception;
 
     @PostMapping(value = "/deleteById")
-    Boolean deleteById(long id)throws Exception;
+    Boolean deleteById(IDRequest id) throws Exception;
 
     @PostMapping(value = "/updateById")
-    Boolean updateById(UserUpdateRequest request)throws Exception;
+    Boolean updateById(UserUpdateRequest request) throws Exception;
 }
