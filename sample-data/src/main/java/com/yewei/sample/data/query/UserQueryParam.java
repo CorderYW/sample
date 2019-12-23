@@ -4,6 +4,7 @@ import com.yewei.sample.common.db.PageReq;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -14,6 +15,7 @@ public class UserQueryParam extends PageReq {
     private String phone;
     private Date startDate;
     private Date endDate;
+    private List<Long> ids;
 }
 
 

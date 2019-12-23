@@ -32,6 +32,13 @@
                 and create_time <![CDATA[ <= ]]>
                 #{endDate,jdbcType=TIMESTAMP}
             </if>
+            <if test="ids != null">
+                and id in
+                <foreach collection="ids" item="item_id"
+                separator="," open="(" close=")">
+                    #{item_id}
+                </foreach>
+            </if>
         </where>
     </sql>
 

@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -16,4 +17,6 @@ import java.util.Date;
 public class UserQueryRequest extends PageReq {
     private String name;
     private String phone;
+
+    private List<Long> ids;
 }
