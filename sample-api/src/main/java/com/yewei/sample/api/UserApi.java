@@ -19,7 +19,6 @@ import java.util.List;
 public interface UserApi {
     @PostMapping(value = "/add")
     UserResponse add(UserAddRequest userRequest) throws Exception;
-
     @GetMapping(value = "/listAllUsers")
     List<UserResponse> listAllUsers(UserQueryRequest query) throws Exception;
 
