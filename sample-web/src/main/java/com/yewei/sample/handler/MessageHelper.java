@@ -1,4 +1,4 @@
-package com.yewei.sample.common.handlers;
+package com.yewei.sample.handler;
 
 import com.yewei.sample.common.error.ErrorCode;
 import com.yewei.sample.common.utils.WebUtils;
