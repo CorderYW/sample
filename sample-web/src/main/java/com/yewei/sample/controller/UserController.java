@@ -31,7 +31,6 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 
-
 @Slf4j
 @RestController
 public class UserController implements UserApi {
@@ -81,3 +80,4 @@ public class UserController implements UserApi {
         return  userService.updateById(request);
     }
 }
+

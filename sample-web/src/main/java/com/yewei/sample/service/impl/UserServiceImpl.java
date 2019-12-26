@@ -7,6 +7,7 @@ import com.yewei.sample.common.utils.ListTransformUtil;
 import com.yewei.sample.data.entity.UserModel;
 import com.yewei.sample.data.mapper.UserMapper;
 import com.yewei.sample.data.query.UserQueryParam;
+import com.yewei.sample.helper.CacheHelper;
 import com.yewei.sample.request.UserQueryRequest;
 import com.yewei.sample.request.UserUpdateRequest;
 import com.yewei.sample.respond.UserResponse;
@@ -28,6 +29,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private CacheHelper cacheHelper;
+
     //这里你传过去的时候user的id为null,而insert之后传回回来的user会把数据库中的id值带回来，真强大
     @Override
     public Long add(UserModel user) {
@@ -41,10 +45,12 @@ public class UserServiceImpl implements UserService {
     public List<UserResponse> listAllUsers(UserQueryRequest query) {
         UserQueryParam param = CopyBeanUtils.copy(query,UserQueryParam.class);
         List<UserModel> all = userMapper.listAllUsers(param);
+        List<UserModel> de = userMapper.listAllUsers(param);
         List<UserResponse> transform = new ArrayList<>();
         if(!CollectionUtils.isEmpty(all)){
             transform = ListTransformUtil.transform(all, UserResponse.class);
         }
+
         return transform;
     }
 
@@ -64,11 +70,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse findById(Long id) throws Exception {
-        UserModel byId = userMapper.findById(id);
-        if(null == byId){
-            throw new BusinessException(GeneralCode.USER_NOT_EXIST);
+        UserModel userInfo = cacheHelper.getUserInfo(id);
+        if(userInfo == null){
+            userInfo = userMapper.findById(id);
+            if(null == userInfo){
+                throw new BusinessException(GeneralCode.USER_NOT_EXIST);
+            }
+            cacheHelper.setUserInfo(id,userInfo);
         }
-        return CopyBeanUtils.copy(byId,UserResponse.class);
+        return CopyBeanUtils.copy(userInfo,UserResponse.class);
     }
 
     @Override

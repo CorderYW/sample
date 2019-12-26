@@ -59,6 +59,21 @@
             <artifactId>druid</artifactId>
             <version>1.1.6</version>
         </dependency>
+        <!-- redis start-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.redisson</groupId>
+               <artifactId>redisson</artifactId>
+               <version>3.11.1</version>
+        </dependency>
+        <!-- redis END-->
     </dependencies>
 
 <!--    <build>-->

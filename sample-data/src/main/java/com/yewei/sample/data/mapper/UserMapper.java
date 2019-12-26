@@ -4,13 +4,7 @@ import java.util.List;
 import com.yewei.sample.common.annotations.DefaultDB;
 import com.yewei.sample.data.entity.UserModel;
 import com.yewei.sample.data.query.UserQueryParam;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 /**
  * 功能描述：访问数据库的接口
