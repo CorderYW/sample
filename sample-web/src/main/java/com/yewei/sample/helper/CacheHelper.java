@@ -32,34 +32,36 @@ public class CacheHelper {
     @Autowired
     private RedissonClient redissonClient;
 
-    public final String USER_INFO = "userInfo:";
-    public final long userInfoExpireSeconds = 60L * 2;
+    public static final String USER_INFO = "userInfo:";
+    public static final long userInfoExpireSeconds = 60L * 2;
+//
+//    public RAtomicLong getDailyExpireLong(String key) {
+//        RAtomicLong atomicLong = redissonClient.getAtomicLong(key);
+//        if (!atomicLong.isExists()) {
+//            atomicLong.set(0l);
+//            atomicLong.expire(DateHelper.getCurrentDateSeconds(), TimeUnit.SECONDS);
+//        }
+//        return atomicLong;
+//    }
+//
+//    public long getUserDoSomethingCount(Long userId, String key) {
+//        RAtomicLong num = getDailyExpireLong(userId+key);
+//        return num.get();
+//    }
 
-    public RAtomicLong getDailyExpireLong(String key) {
-        RAtomicLong atomicLong = redissonClient.getAtomicLong(key);
-        if (!atomicLong.isExists()) {
-            atomicLong.set(0l);
-            atomicLong.expire(DateHelper.getCurrentDateSeconds(), TimeUnit.SECONDS);
-        }
-        return atomicLong;
-    }
-
-    public long getUserDoSomethingCount(Long userId, String key) {
-        RAtomicLong num = getDailyExpireLong(userId+key);
-        return num.get();
-    }
-
-    public void setUserInfo(Long userId, UserModel model) {
-        RBucket<UserModel> userModelRBucket = redissonClient.getBucket(USER_INFO + userId);
-
-        userModelRBucket.set(model);
-        userModelRBucket.expire(userInfoExpireSeconds, TimeUnit.SECONDS);
-    }
-
-    public UserModel getUserInfo(Long userId) {
-        RBucket<UserModel> mobile = redissonClient.getBucket(USER_INFO + userId);
+    public <T>T getObject(String key,Class<T> t){
+        RBucket<T> mobile = redissonClient.getBucket(key);
         return mobile.get();
     }
 
+    public <T>T setObjectExpire(String key,T t,Long expireSeconds){
+        RBucket<T> userModelRBucket = redissonClient.getBucket(key);
+        userModelRBucket.set(t);
+        userModelRBucket.expire(expireSeconds, TimeUnit.SECONDS);
+        return userModelRBucket.get();
+    }
 
+    public <T>T setObject(String key,T t){
+        return  setObjectExpire(key,t,null);
+    }
 }

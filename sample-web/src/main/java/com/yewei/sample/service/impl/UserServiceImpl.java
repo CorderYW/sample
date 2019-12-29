@@ -68,15 +68,28 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+//    @Override
+//    public UserResponse findById(Long id) throws Exception {
+//        UserModel userInfo = cacheHelper.getUserInfo(id);
+//        if(userInfo == null){
+//            userInfo = userMapper.findById(id);
+//            if(null == userInfo){
+//                throw new BusinessException(GeneralCode.USER_NOT_EXIST);
+//            }
+//            cacheHelper.setUserInfo(id,userInfo);
+//        }
+//        return CopyBeanUtils.copy(userInfo,UserResponse.class);
+//    }
+
     @Override
     public UserResponse findById(Long id) throws Exception {
-        UserModel userInfo = cacheHelper.getUserInfo(id);
+        UserModel userInfo = cacheHelper.getObject(CacheHelper.USER_INFO+id.toString(),UserModel.class);
         if(userInfo == null){
             userInfo = userMapper.findById(id);
             if(null == userInfo){
                 throw new BusinessException(GeneralCode.USER_NOT_EXIST);
             }
-            cacheHelper.setUserInfo(id,userInfo);
+            cacheHelper.setObjectExpire(CacheHelper.USER_INFO+id.toString(),userInfo,CacheHelper.userInfoExpireSeconds);
         }
         return CopyBeanUtils.copy(userInfo,UserResponse.class);
     }
