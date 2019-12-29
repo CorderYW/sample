@@ -54,14 +54,13 @@ public class CacheHelper {
         return mobile.get();
     }
 
-    public <T>T setObjectExpire(String key,T t,Long expireSeconds){
-        RBucket<T> userModelRBucket = redissonClient.getBucket(key);
+    public void setObjectExpire(String key,Object t,Long expireSeconds){
+        RBucket<Object> userModelRBucket = redissonClient.getBucket(key);
         userModelRBucket.set(t);
         userModelRBucket.expire(expireSeconds, TimeUnit.SECONDS);
-        return userModelRBucket.get();
     }
 
-    public <T>T setObject(String key,T t){
-        return  setObjectExpire(key,t,null);
+    public void setObject(String key,Object t){
+        setObjectExpire(key,t,null);
     }
 }
