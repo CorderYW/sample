@@ -16,19 +16,19 @@ import java.util.Map;
 @Slf4j
 @Component
 public class MQConfiguration {
-    private static String ORDER_EXCHANGE = "orderExchangeV4";
-    private static Integer messageTTL=  60*60*1000;
+     private static Integer messageTTL=  60*60*1000;
     //交换机用于重新分配队列
     @Bean
     DirectExchange direct() {
-        return new DirectExchange(ORDER_EXCHANGE);
+        return new DirectExchange(Constant.ORDER_EXCHANGE);
     }
     //用于延时消费的队列
     @Bean
     public Queue notifyPayedDeadLetterQueue() {
-        Queue queue = new Queue(Constant.MQ_ORDER_NOTIFY_PAYED_DEAD_LETTER_QUEUE,true,false,false);
+        Queue queue = new Queue(Constant.MQ_QUEUE_ORDER_NOTIFY_PAYED_DEAD_LETTER,true,false,false);
         return queue;
     }
+
 
     //绑定交换机并指定routing key
     @Bean
@@ -41,9 +41,19 @@ public class MQConfiguration {
     public Queue notifyPayedQueue() {
         Map<String,Object> args = new HashMap<>();
         args.put("x-message-ttl", messageTTL);
-        args.put("x-dead-letter-exchange",ORDER_EXCHANGE);
+        args.put("x-dead-letter-exchange",Constant.ORDER_EXCHANGE);
         args.put("x-dead-letter-routing-key", Constant.ROUTING_KEY_MQ_ORDER_NOTIFY_PAYED);
-        return new Queue(Constant.MQ_ORDER_NOTIFY_PAYED_QUEUE, true, false, false, args);
+        return new Queue(Constant.MQ_QUEUE_ORDER_NOTIFY_PAYED, true, false, false, args);
     }
 
+    //USER QUEUE
+    @Bean
+    public Queue userQueue() {
+        Queue queue = new Queue(Constant.MQ_QUEUE_USER,true,false,false);
+        return queue;
+    }
+    @Bean
+    public Binding  userQueueBinding(DirectExchange exchange) {
+        return BindingBuilder.bind(userQueue()).to(exchange).with(Constant.ROUTING_KEY_MQ_USER);
+    }
 }

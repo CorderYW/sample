@@ -31,17 +31,25 @@ public class TestController {
         return userModel;
     }
 
-    @GetMapping("/makeOrderMQ")
-    public void makeOrderMQ(Long delay) throws Exception{
+    @GetMapping("/makeOrderDelayMQ")
+    public void makeOrderDelayMQ(Long delay) throws Exception{
         log.info("发送消息");
         UserModel u = new UserModel();
         u.setAge(11);
         u.setName("yewei");
-        rabbitTemplate.convertAndSend(Constant.MQ_ORDER_NOTIFY_PAYED_QUEUE, u, message -> {
+        rabbitTemplate.convertAndSend(Constant.MQ_QUEUE_ORDER_NOTIFY_PAYED, u, message -> {
             MessageProperties messageProperties = message.getMessageProperties();
             // 设置这条消息的过期时间,delayMinute*60*1000 ms
             messageProperties.setExpiration(String.valueOf(delay * 1000));
             return message;
         });
+    }
+    @GetMapping("/makeOrderNormalMQ")
+    public void makeOrderNormalMQ() throws Exception{
+        log.info("发送消息：");
+        UserModel u = new UserModel();
+        u.setAge(22);
+        u.setName("yewei22");
+        rabbitTemplate.convertAndSend(Constant.ORDER_EXCHANGE,Constant.ROUTING_KEY_MQ_USER, u);
     }
 }
