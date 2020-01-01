@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.yewei.sample.constant.Constant;
 import com.yewei.sample.data.entity.UserModel;
 import com.yewei.sample.rest.RubbishResponse;
+import com.yewei.service.ChinaSmsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -31,6 +32,9 @@ public class TestController {
         return userModel;
     }
 
+    @Autowired(required = false)
+    private ChinaSmsService chinaSmsService;
+
     @GetMapping("/makeOrderDelayMQ")
     public void makeOrderDelayMQ(Long delay) throws Exception{
         log.info("发送消息");
@@ -51,5 +55,9 @@ public class TestController {
         u.setAge(22);
         u.setName("yewei22");
         rabbitTemplate.convertAndSend(Constant.ORDER_EXCHANGE,Constant.ROUTING_KEY_MQ_USER, u);
+    }
+    @GetMapping("/sendSms")
+    public void sendSms(String mobileNumber,String content) throws Exception{
+        chinaSmsService.sendSms(mobileNumber,"【币安TEST】"+content);
     }
 }

@@ -12,6 +12,7 @@ import com.yewei.sample.request.UserQueryRequest;
 import com.yewei.sample.request.UserUpdateRequest;
 import com.yewei.sample.respond.UserResponse;
 import com.yewei.sample.service.UserService;
+import com.yewei.service.ChinaSmsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,7 @@ public class UserServiceImpl implements UserService {
         log.info("添加用户:{}",user.toString());
         int insert = userMapper.insert(user);
         Long id = user.getId();
+//        chinaSmsService.sendSms("188","0");
         return id;
     }
 
