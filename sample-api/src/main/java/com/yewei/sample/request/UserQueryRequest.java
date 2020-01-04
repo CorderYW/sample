@@ -1,7 +1,6 @@
 package com.yewei.sample.request;
 
-import com.yewei.sample.common.db.Page;
-import com.yewei.sample.common.db.PageReq;
+import com.yewei.common.db.req.PageReq;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

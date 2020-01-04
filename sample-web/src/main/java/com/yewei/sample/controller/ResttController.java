@@ -2,8 +2,6 @@ package com.yewei.sample.controller;
 
 import com.google.common.collect.Maps;
 import com.yewei.sample.api.UserApi;
-import com.yewei.sample.common.db.PageResult;
-import com.yewei.sample.common.utils.CopyBeanUtils;
 import com.yewei.sample.data.entity.UserModel;
 import com.yewei.sample.data.mapper.UserMapper;
 import com.yewei.sample.data.query.UserQueryParam;

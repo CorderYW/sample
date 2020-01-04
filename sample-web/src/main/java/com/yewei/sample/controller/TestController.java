@@ -3,7 +3,6 @@ package com.yewei.sample.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.yewei.sample.constant.Constant;
 import com.yewei.sample.data.entity.UserModel;
-import com.yewei.sample.rest.RubbishResponse;
 import com.yewei.service.ChinaSmsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.MessageProperties;

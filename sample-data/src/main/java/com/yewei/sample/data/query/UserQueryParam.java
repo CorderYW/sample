@@ -1,6 +1,6 @@
 package com.yewei.sample.data.query;
 
-import com.yewei.sample.common.db.PageReq;
+import com.yewei.common.db.req.PageReq;
 import lombok.*;
 
 import java.util.Date;

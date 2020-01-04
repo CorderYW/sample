@@ -1,6 +1,6 @@
 package com.yewei.sample.api;
 
-import com.yewei.sample.common.db.PageResult;
+import com.yewei.common.db.req.PageResult;
 import com.yewei.sample.request.IDRequest;
 import com.yewei.sample.request.UserQueryRequest;
 import com.yewei.sample.request.UserAddRequest;

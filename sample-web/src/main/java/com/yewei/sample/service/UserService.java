@@ -1,6 +1,6 @@
 package com.yewei.sample.service;
 
-import com.yewei.sample.common.db.PageResult;
+import com.yewei.common.db.req.PageResult;
 import com.yewei.sample.data.entity.UserModel;
 import com.yewei.sample.data.query.UserQueryParam;
 import com.yewei.sample.request.UserQueryRequest;

@@ -1,35 +1,22 @@
 package com.yewei.sample.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Maps;
+import com.yewei.common.db.req.PageResult;
+import com.yewei.common.utils.CopyBeanUtils;
 import com.yewei.sample.api.UserApi;
 import com.yewei.sample.common.advice.SystemFix;
-import com.yewei.sample.common.db.PageResult;
-import com.yewei.sample.common.utils.CopyBeanUtils;
-import com.yewei.sample.common.utils.ListTransformUtil;
 import com.yewei.sample.data.entity.UserModel;
-import com.yewei.sample.data.mapper.UserMapper;
 import com.yewei.sample.data.query.UserQueryParam;
 import com.yewei.sample.request.IDRequest;
-import com.yewei.sample.request.UserQueryRequest;
 import com.yewei.sample.request.UserAddRequest;
+import com.yewei.sample.request.UserQueryRequest;
 import com.yewei.sample.request.UserUpdateRequest;
 import com.yewei.sample.respond.UserResponse;
 import com.yewei.sample.service.UserService;
-import com.yewei.sample.utils.RestTemplateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.Resource;
+import java.util.List;
 
 @Slf4j
 @RestController

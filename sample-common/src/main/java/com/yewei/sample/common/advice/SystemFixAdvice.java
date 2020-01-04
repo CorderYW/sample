@@ -1,7 +1,7 @@
 package com.yewei.sample.common.advice;
 
-import com.yewei.sample.common.error.BusinessException;
-import com.yewei.sample.common.error.GeneralCode;
+import com.yewei.common.error.BusinessException;
+import com.yewei.common.error.GeneralCode;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Value;

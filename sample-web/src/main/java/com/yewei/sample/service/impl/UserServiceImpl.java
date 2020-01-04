@@ -1,12 +1,13 @@
 package com.yewei.sample.service.impl;
-import com.yewei.sample.common.db.PageResult;
-import com.yewei.sample.common.error.BusinessException;
-import com.yewei.sample.common.error.GeneralCode;
-import com.yewei.sample.common.utils.CopyBeanUtils;
-import com.yewei.sample.common.utils.ListTransformUtil;
+import com.yewei.common.db.req.PageResult;
+import com.yewei.common.error.BusinessException;
+import com.yewei.common.error.GeneralCode;
+import com.yewei.common.utils.CopyBeanUtils;
+import com.yewei.common.utils.ListTransformUtil;
 import com.yewei.sample.data.entity.UserModel;
 import com.yewei.sample.data.mapper.UserMapper;
 import com.yewei.sample.data.query.UserQueryParam;
+import com.yewei.sample.exception.SampleException;
 import com.yewei.sample.helper.CacheHelper;
 import com.yewei.sample.request.UserQueryRequest;
 import com.yewei.sample.request.UserUpdateRequest;
@@ -89,7 +90,7 @@ public class UserServiceImpl implements UserService {
         if(userInfo == null){
             userInfo = userMapper.findById(id);
             if(null == userInfo){
-                throw new BusinessException(GeneralCode.USER_NOT_EXIST);
+                throw new BusinessException(SampleException.USER_NOT_EXIST);
             }
             cacheHelper.setObjectExpire(CacheHelper.USER_INFO+id.toString(),userInfo,CacheHelper.userInfoExpireSeconds);
         }

@@ -2,7 +2,7 @@ package com.yewei.sample.mq;
 
 import com.alibaba.fastjson.JSON;
 import com.rabbitmq.client.Channel;
-import com.yewei.sample.common.utils.TrackingUtils;
+import com.yewei.common.utils.TrackingUtils;
 import com.yewei.sample.constant.Constant;
 import com.yewei.sample.data.entity.UserModel;
 import lombok.extern.log4j.Log4j2;

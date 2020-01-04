@@ -1,8 +1,8 @@
 package com.yewei.sample.handler;
 
-import com.yewei.sample.common.error.BusinessException;
-import com.yewei.sample.common.error.GeneralCode;
-import com.yewei.sample.common.models.APIResponse;
+import com.yewei.common.error.BusinessException;
+import com.yewei.common.error.GeneralCode;
+import com.yewei.common.model.api.APIResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
