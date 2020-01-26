@@ -21,7 +21,7 @@ public class StudentInfoResponse {
     private Integer stuStatus;
 
     @ApiModelProperty("创建时间")
-    private Date createTime;
+    private Date createDate;
 
     private String openId;
 }

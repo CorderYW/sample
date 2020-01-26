@@ -7,17 +7,14 @@
         <result column="phone" jdbcType="VARCHAR" property="phone"/>
         <result column="openId" jdbcType="VARCHAR" property="openId"/>
         <result column="stu_status" jdbcType="INTEGER" property="stuStatus"/>
-        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
-		id,stu_name,phone,stu_status,create_time,open_id
+		id,stu_name,phone,stu_status,create_date,open_id
 	</sql>
 
     <sql id="Base_Where_List">
         <where>
-            <if test="1==1">
-                is_removed = 0
-            </if>
             <if test="stuName!=null">
                 and stu_name =#{stuName,jdbcType=VARCHAR}
             </if>
@@ -33,7 +30,7 @@
             resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from studeng_info t1
+        from student_info t1
         <include refid="Base_Where_List"/>
     </select>
 

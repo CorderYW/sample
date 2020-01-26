@@ -19,5 +19,5 @@ public class StudentInfoModel implements Serializable {
     private String phone;
     private String openId;
     private Integer stuStatus;
-    private Date createTime;
+    private Date createDate;
 }
