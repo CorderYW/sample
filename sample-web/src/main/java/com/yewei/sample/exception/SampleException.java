@@ -6,6 +6,7 @@ public enum SampleException implements ErrorCode {
 
     USER_NOT_EXIST("083001", "支付方式不存在"),
     TRY_TOMORROW("083002", "您已经提交过"),
+    NAME_ERROR("083002", "输入的名字不对"),
 
         ;
 

@@ -112,6 +112,9 @@ public class StudentInfoServiceImpl implements StudentInfoService {
             throw new BusinessException(SampleException.TRY_TOMORROW);
         }
         user.setStuName(user.getStuName().trim());
+        if(!stuNames.contains(user.getStuName())){
+            throw new BusinessException(SampleException.NAME_ERROR);
+        }
         int insert = studentInfoMapper.insert(user);
         cacheHelper.setObjectExpire(user.getPhone(),user.getPhone(), DateHelper.getCurrentDateSeconds());
         Long id = user.getId();
