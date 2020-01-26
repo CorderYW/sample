@@ -126,12 +126,12 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     public List<StudentInfoResponse> listAllUsers(StudentInfoQueryRequest query) {
         StudentInfoQueryParam param = CopyBeanUtils.copy(query, StudentInfoQueryParam.class);
         if(null == param.getStartDate()){
-            Date today0 = DateHelper.getDawnDateUtcToBJ(0);
+            Date today0 = DateHelper.getDawnDateUtcToBJ(-1);
             log.info("开始时间：{}",today0);
             param.setStartDate(today0);
         }
         if(null == param.getEndDate()){
-            Date today24 = DateHelper.getDawnDateUtcToBJ(1);
+            Date today24 = DateHelper.getDawnDateUtcToBJ(0);
             log.info("结束时间：{}",today24);
             param.setEndDate(today24);
         }
