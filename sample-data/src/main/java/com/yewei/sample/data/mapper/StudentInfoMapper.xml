@@ -21,7 +21,14 @@
             <if test="phone!=null">
                 and phone =#{phone,jdbcType=VARCHAR}
             </if>
-
+            <if test="startDate != null">
+                and create_date <![CDATA[ >= ]]>
+                #{startDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="endDate != null">
+                and create_date <![CDATA[ <= ]]>
+                #{endDate,jdbcType=TIMESTAMP}
+            </if>
         </where>
     </sql>
 

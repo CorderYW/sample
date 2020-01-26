@@ -24,4 +24,7 @@ public class StudentInfoResponse {
     private Date createDate;
 
     private String openId;
+
+    @ApiModelProperty("是否填写信息")
+    private Boolean filled=true;
 }

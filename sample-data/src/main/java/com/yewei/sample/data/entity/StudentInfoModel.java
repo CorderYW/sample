@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Data
 @ToString
@@ -20,4 +21,18 @@ public class StudentInfoModel implements Serializable {
     private String openId;
     private Integer stuStatus;
     private Date createDate;
+    private Boolean filled=true;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StudentInfoModel that = (StudentInfoModel) o;
+        return stuName.equals(that.stuName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(stuName);
+    }
 }
