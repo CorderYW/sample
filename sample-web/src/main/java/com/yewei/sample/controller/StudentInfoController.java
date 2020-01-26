@@ -14,10 +14,7 @@ import com.yewei.sample.service.StudentInfoService;
 import com.yewei.sample.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,7 +27,7 @@ public class StudentInfoController {
     private StudentInfoService studentInfoService;
 
     @PostMapping("/addInfo")
-    public StudentInfoResponse add(StudentInfoAddRequest userRequest) throws Exception {
+    public StudentInfoResponse add(@RequestBody StudentInfoAddRequest userRequest) throws Exception {
         StudentInfoModel user = CopyBeanUtils.copy(userRequest, StudentInfoModel.class);
         Long id = studentInfoService.add(user);
         StudentInfoResponse re = CopyBeanUtils.copy(user, StudentInfoResponse.class);
@@ -38,7 +35,7 @@ public class StudentInfoController {
     }
 
     @PostMapping("/listAll")
-    public List<StudentInfoResponse> listAllUsers(StudentInfoQueryRequest query) throws Exception {
+    public List<StudentInfoResponse> listAllUsers(@RequestBody StudentInfoQueryRequest query) throws Exception {
         return studentInfoService.listAllUsers(query);
     }
 }
