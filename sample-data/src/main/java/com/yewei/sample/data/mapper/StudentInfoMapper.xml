@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yewei.sample.data.mapper.StudentInfoMapper">
+    <resultMap id="BaseResultMap" type="com.yewei.sample.data.entity.StudentInfoModel">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="stu_name" jdbcType="VARCHAR" property="stuName"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="openId" jdbcType="VARCHAR" property="openId"/>
+        <result column="stu_status" jdbcType="INTEGER" property="stuStatus"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+		id,stu_name,phone,stu_status,create_time,open_id
+	</sql>
+
+    <sql id="Base_Where_List">
+        <where>
+            <if test="1==1">
+                is_removed = 0
+            </if>
+            <if test="stuName!=null">
+                and stu_name =#{stuName,jdbcType=VARCHAR}
+            </if>
+            <if test="phone!=null">
+                and phone =#{phone,jdbcType=VARCHAR}
+            </if>
+
+        </where>
+    </sql>
+
+    <select id="listAllStudentInfo"
+            parameterType="com.yewei.sample.data.query.StudentInfoQueryParam"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from studeng_info t1
+        <include refid="Base_Where_List"/>
+    </select>
+
+    <insert id="insert"
+            parameterType="com.yewei.sample.data.entity.StudentInfoModel"
+            useGeneratedKeys="true"
+            keyProperty="id"
+            keyColumn="id">
+		insert into student_info (stu_name,phone,stu_status,open_id)
+		values (#{stuName,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{stuStatus,jdbcType=BIGINT},#{openId,jdbcType=VARCHAR})
+	</insert>
+
+</mapper>
