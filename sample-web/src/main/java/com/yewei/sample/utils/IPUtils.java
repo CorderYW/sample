@@ -6,7 +6,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class IPUtils {
-    public static String getIpAddr(HttpServletRequest request) {
+    public static String getIpAddr() {
+        HttpServletRequest request = WebUtils.getHttpServletRequest();
         String ipAddress = null;
         try {
             ipAddress = request.getHeader("x-forwarded-for");

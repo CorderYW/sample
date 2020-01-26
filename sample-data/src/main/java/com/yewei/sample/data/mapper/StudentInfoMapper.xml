@@ -43,4 +43,6 @@
 		values (#{stuName,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{stuStatus,jdbcType=BIGINT},#{openId,jdbcType=VARCHAR})
 	</insert>
 
+
+
 </mapper>

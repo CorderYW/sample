@@ -1,6 +1,7 @@
 package com.yewei.sample.service.impl;
 import com.yewei.common.db.req.PageResult;
 import com.yewei.common.error.BusinessException;
+import com.yewei.common.helper.DateHelper;
 import com.yewei.common.utils.CopyBeanUtils;
 import com.yewei.common.utils.ListTransformUtil;
 import com.yewei.sample.data.entity.StudentInfoModel;
@@ -18,11 +19,13 @@ import com.yewei.sample.respond.StudentInfoResponse;
 import com.yewei.sample.respond.UserResponse;
 import com.yewei.sample.service.StudentInfoService;
 import com.yewei.sample.service.UserService;
+import com.yewei.sample.utils.IPUtils;
 import com.yewei.sample.utils.WebUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +46,13 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     @Override
     public Long add(StudentInfoModel user) {
         log.info("添加信息:{}",user.toString());
+        String requestIp = IPUtils.getIpAddr();
+        log.info("ip:{}",requestIp);
+        if(!StringUtils.isEmpty(cacheHelper.getObject(user.getPhone(),String.class))){
+            throw new BusinessException(SampleException.TRY_TOMORROW);
+        }
         int insert = studentInfoMapper.insert(user);
+        cacheHelper.setObjectExpire(user.getPhone(),user.getPhone(), DateHelper.getCurrentDateSeconds());
         Long id = user.getId();
         return id;
     }
