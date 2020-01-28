@@ -82,7 +82,7 @@ public class StudentInfoServiceImpl implements StudentInfoService {
         stuNames.add("郭泽宇");
         stuNames.add("胡希晨");
         stuNames.add("旷宇杰");
-        stuNames.add("周珺林");
+        stuNames.add("周珺琳");
         stuNames.add("叶祖良");
         stuNames.add("周嘉迪");
         stuNames.add("刘友良");
