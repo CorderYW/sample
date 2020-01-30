@@ -27,9 +27,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.annotation.PostConstruct;
+import java.util.*;
 
 
 @Slf4j
@@ -44,6 +43,7 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     private CacheHelper cacheHelper;
 
     private static List<String> stuNames = new ArrayList<>();
+    private static Map<String,String> stuPhoneMap = new HashMap();
 
     static{
         stuNames.add("唐佳豪");
@@ -103,6 +103,15 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     }
 
 
+    @PostConstruct
+    public void init() {
+        List<StudentInfoModel> init = studentInfoMapper.init();
+        if(init != null && init.size()>0){
+            for(StudentInfoModel mo:init){
+                stuPhoneMap.put(mo.getStuName(),mo.getPhone());
+            }
+        }
+    }
     //这里你传过去的时候user的id为null,而insert之后传回回来的user会把数据库中的id值带回来，真强大
     @Override
     public Long add(StudentInfoModel user) {
@@ -135,7 +144,8 @@ public class StudentInfoServiceImpl implements StudentInfoService {
             log.info("结束时间：{}",today24);
             param.setEndDate(today24);
         }
-        List<StudentInfoModel> all = studentInfoMapper.listAllStudentInfo(param);
+
+       List<StudentInfoModel> all = studentInfoMapper.listAllStudentInfo(param);
         List<StudentInfoResponse> transform = new ArrayList<>();
 
         StudentInfoModel stuM = new StudentInfoModel();
@@ -144,6 +154,9 @@ public class StudentInfoServiceImpl implements StudentInfoService {
             if (!all.contains(stuM)) {
                 StudentInfoModel notFilled = new StudentInfoModel();
                 notFilled.setStuName(stu);
+                if(!CollectionUtils.isEmpty(stuPhoneMap)){
+                    notFilled.setPhone(stuPhoneMap.get(stu));
+                }
                 notFilled.setFilled(Boolean.FALSE);
                 all.add(notFilled);
             }

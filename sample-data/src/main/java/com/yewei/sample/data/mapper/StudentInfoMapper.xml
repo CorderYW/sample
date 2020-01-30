@@ -40,6 +40,13 @@
         from student_info t1
         <include refid="Base_Where_List"/>
     </select>
+    <select id="init"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from student_info t1
+        where create_date  <![CDATA[ >= ]]>'2020-01-28 16:00:00' and create_date <![CDATA[ <= ]]>'2020-01-29 16:00:00';
+    </select>
 
     <insert id="insert"
             parameterType="com.yewei.sample.data.entity.StudentInfoModel"

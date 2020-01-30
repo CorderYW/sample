@@ -22,4 +22,8 @@ public interface StudentInfoMapper {
     //column指数据库中的列，property是指实体的属性名，如果一致就不需要写
     List<StudentInfoModel> listAllStudentInfo(StudentInfoQueryParam query);
 
+    //column指数据库中的列，property是指实体的属性名，如果一致就不需要写
+    List<StudentInfoModel> init();
+
+
 }
